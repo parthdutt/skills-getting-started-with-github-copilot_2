@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Clear loading message
       activitiesList.innerHTML = "";
 
+      // Clear activity options (except the default one)
+      while (activitySelect.options.length > 1) {
+        activitySelect.remove(1);
+      }
+
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
         const activityCard = document.createElement("div");
@@ -69,7 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       const result = await response.json();
-
+  // Refresh activities list to show the new participant
+        fetchActivities();
+      
       if (response.ok) {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
